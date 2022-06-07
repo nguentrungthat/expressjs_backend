@@ -1,19 +1,30 @@
 const WORKS = require('../../config/db/works');
 const helper = require('../lib/helper');
+let Model = require('../../config/model/works');
 
 class WorksController{
     //[GET] /works
     async index(req, res){
-        const data = await WORKS.GET();
-        data.forEach(data => {
+        const data = await WORKS.GET(); 
+        let objWorks = Model.get_workModel(data);
+        for (const works of objWorks){
+            const work_receives = await WORKS.GET_ID(works.ID);
+            let str = '';
+            let time = 0;
+            work_receives.forEach(elm => {
+                str = str + elm.TEN_NGUOI_NHAN + ', ';
+                time = time + elm.TOTAL_TIME;
+            });
+            works.TEN_NGUOI_NHAN = str.slice(0,str.length - 2);
+            works.TOTAL_TIME = time;
             //format TG_TAO
-            let date = data.TG_TAO.toString();
-            data.TG_TAO = helper.formatDate(date);
+            let date = works.TG_TAO.toString();
+            works.TG_TAO = helper.formatDate(date);
             //format TG_HET_HAN
-            date = data.TG_HET_HAN.toString();
-            data.TG_HET_HAN = helper.formatDate(date);
-        })
-        res.json(data);
+            date = works.TG_HET_HAN.toString();
+            works.TG_HET_HAN = helper.formatDate(date);
+        }
+        res.json(objWorks);
     }
 
     //[POST] /works/ID
@@ -24,9 +35,11 @@ class WorksController{
     }
 
     //[POST] /works/create
-    create(req, res){
+    async create(req, res){
         const body = req.body;
-        res.json(body);
+        console.log(body);
+        await WORKS.CREATE_WORK(body);
+        res.json("Successfully!");
     }
 
 }

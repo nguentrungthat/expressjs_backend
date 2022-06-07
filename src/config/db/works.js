@@ -6,13 +6,12 @@ const query = require('../../app/lib/WorksQuery');
 async function GET ()  {
     try {
         const connection = await db.connect();
-        console.log("Connected!");
         const str = query.works();
         const result = await connection.execute(str);
         const data = result.rows;
         return data;
     } catch (err) {
-      console.log('Error: ', err)
+      console.log('Error works: ', err)
     }
 }
 
@@ -20,14 +19,27 @@ async function GET ()  {
 async function GET_ID (id)  {
     try {
         const connection = await db.connect();
-        console.log("Connected!");
-        const str = query.work_id(id);
+        const str = query.work_receive(id);
         const result = await connection.execute(str);
-        const data = result.rows[0];
+        const data = result.rows;
         return data;
     } catch (err) {
-      console.log('Error: ', err)
+      console.log('Error work_id: ', err)
     }
   }
 
-module.exports = {GET, GET_ID };
+  async function CREATE_WORK (body)  {
+    try {
+        const connection = await db.connect();
+        const str = query.add_work(body);
+        const result = await connection.execute(str,{},{   
+          autoCommit: true
+        });
+        const data = result.rows;
+        return data;
+    } catch (err) {
+      console.log('Error create work: ', err)
+    }
+  }
+
+module.exports = {GET, GET_ID, CREATE_WORK };

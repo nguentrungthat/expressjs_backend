@@ -13,8 +13,8 @@ const app = express();
 app.use(cors({
    origin: '*'
 }));
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
 app.use(express.static(path.join(__dirname,'public')));
 
 //HTTP logger

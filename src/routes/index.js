@@ -2,6 +2,7 @@ const rolesRoute = require('./roles');
 const usersRoute = require('./users');
 const loginRoute = require('./login');
 const worksRoute = require('./works');
+const getRoute = require('./gets');
 
 
 
@@ -18,6 +19,9 @@ function route(app){
     app.use('/login', loginRoute);
 
     app.use('/works', worksRoute);
+
+    app.use('/get', getRoute);
+
 
 
 }
