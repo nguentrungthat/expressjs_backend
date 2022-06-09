@@ -1,5 +1,5 @@
 function users(){
-    return 'SELECT * FROM GV_USERS';      
+    return 'SELECT ID, NAME_USERS FROM GV_USERS';      
 }
 
 function user_id(id){

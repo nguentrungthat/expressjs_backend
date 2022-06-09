@@ -12,7 +12,7 @@ async function connect ()  {
     try {
         return await oracledb.getConnection(config);
     } catch (err) {
-      console.log('Error: ', err)
+      console.log('Error connection: ', err)
     }
 }
 

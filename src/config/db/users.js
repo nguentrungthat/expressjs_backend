@@ -5,12 +5,11 @@ const query = require('../../app/lib/UsersQuery');
 async function GET ()  {
     try {
         const connection = await db.connect();
-        console.log("Connected!");
         const result = await connection.execute(query.users());
         const data = result.rows;
         return data;
     } catch (err) {
-      console.log('Error: ', err)
+      console.log('Error users: ', err)
     }
 }
 
@@ -18,12 +17,11 @@ async function GET ()  {
 async function GET_ID (id)  {
     try {
         const connection = await db.connect();
-        console.log("Connected!");
         const result = await connection.execute(query.user_id(id));
         const data = result.rows[0];
         return data;
     } catch (err) {
-      console.log('Error: ', err)
+      console.log('Error user: ', err)
     }
   }
 

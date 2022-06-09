@@ -5,7 +5,9 @@ const WorksController = require('../app/controllers/WorksController');
 
 router.post('/create', WorksController.create);
 
-router.post('/ID', WorksController.show);
+router.post('/id', WorksController.id);
+
+router.post('/work_id', WorksController.work_id);
 
 router.get('/', WorksController.index);
 

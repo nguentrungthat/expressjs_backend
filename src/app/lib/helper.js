@@ -5,4 +5,8 @@ function formatDate(date){
     return date;      
 }
 
-module.exports = {formatDate };
+function check(data){
+    return data ? data : null;
+}
+
+module.exports = {formatDate, check };

@@ -12,7 +12,9 @@ class LoginController{
         if (data.length == 0)
             res.json('Sai email hoặc password!');
         else{
-            res.redirect(`/users/${data[0].ID}`);
+            const user = USERS.GET_ID(data.ID);
+            console.log("Connected!");
+            res.json(user);
         }
     }
 

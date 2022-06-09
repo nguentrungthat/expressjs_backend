@@ -3,13 +3,19 @@ const query = require('../../app/lib/WorksQuery');
 
 
 //GET
-async function GET ()  {
+async function GET (id)  {
     try {
-        const connection = await db.connect();
-        const str = query.works();
+      const connection = await db.connect();
+      if(id){
+        const str = query.works(id);
         const result = await connection.execute(str);
         const data = result.rows;
         return data;
+      }
+      const str = query.works();
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
     } catch (err) {
       console.log('Error works: ', err)
     }
@@ -28,6 +34,7 @@ async function GET_ID (id)  {
     }
   }
 
+//POST Create work
   async function CREATE_WORK (body)  {
     try {
         const connection = await db.connect();
@@ -42,4 +49,32 @@ async function GET_ID (id)  {
     }
   }
 
-module.exports = {GET, GET_ID, CREATE_WORK };
+  //POST Create work_receive
+  async function CREATE_WORK_RECEIVE (body)  {
+    try {
+        const connection = await db.connect();
+        const str = query.add_work_receive(body);
+        const result = await connection.execute(str,{},{   
+          autoCommit: true
+        });
+        const data = result.rows;
+        return data;
+    } catch (err) {
+      console.log('Error create work: ', err)
+    }
+  }
+
+  //Last work
+  async function LAST_WORK ()  {
+    try {
+        const connection = await db.connect();
+        const str = query.last_work();
+        const result = await connection.execute(str);
+        const data = result.rows[0];
+        return data;
+    } catch (err) {
+      console.log('Error create work: ', err)
+    }
+  }
+
+module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK };
