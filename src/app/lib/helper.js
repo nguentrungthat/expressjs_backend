@@ -5,8 +5,8 @@ function formatDate(date){
     return date;      
 }
 
-function check(data){
-    return data ? data : null;
+function check(data, elm){
+    return data ? data : elm;
 }
 
 module.exports = {formatDate, check };

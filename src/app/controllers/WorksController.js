@@ -27,7 +27,6 @@ class WorksController{
         res.json(objWorks);
     }
 
-
     //[POST] /works/id
     async id(req, res){
         const body = req.body;
@@ -35,10 +34,18 @@ class WorksController{
         res.json(data);
     }
 
+    //[POST] /works/work_receive_id
+    async work_receive_id(req, res){
+        const body = req.body;
+        const data = await WORKS.GET_WORK_RECEIVE_ID(body.ID);
+        res.json(data);
+    }
+
     //[POST] /works/create
     async create(req, res){
         const body = req.body;
         const works = Model.workModel(req.body);
+        console.log(works);
         await WORKS.CREATE_WORK(works);
         if(body.WORK_RECEIVES){
             const work_receives = body.WORK_RECEIVES;
@@ -78,6 +85,13 @@ class WorksController{
             }
             res.json(objWorks);
         }
+    }
+
+    //[POST] /works/update_work_receive
+    async update_work_receive(req, res){
+        const body = Model.receivesModel(req.body);
+        await WORKS.UPDATE_WORK_RECEIVE(body);
+        res.json(body);
     }
 
 }

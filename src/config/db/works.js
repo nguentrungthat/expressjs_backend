@@ -34,6 +34,19 @@ async function GET_ID (id)  {
     }
   }
 
+  //GET by id work_receive
+async function GET_WORK_RECEIVE_ID (id)  {
+  try {
+      const connection = await db.connect();
+      const str = query.work_receive_id(id);
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error work_receive_id: ', err)
+  }
+}
+
 //POST Create work
   async function CREATE_WORK (body)  {
     try {
@@ -77,4 +90,20 @@ async function GET_ID (id)  {
     }
   }
 
-module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK };
+  //POST UPDATE WORK_RECEIVE()
+  async function UPDATE_WORK_RECEIVE (body)  {
+    try {
+        const connection = await db.connect();
+        const str = query.update_work_receive(body);
+        const result = await connection.execute(str,{},{   
+          autoCommit: true
+        });
+        const data = result.rows;
+        return data;
+    } catch (err) {
+      console.log('Error update work: ', err)
+    }
+  }
+
+
+module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE };
