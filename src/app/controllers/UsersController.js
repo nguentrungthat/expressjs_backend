@@ -5,14 +5,6 @@ class UsersController{
     //[GET] /users
     async index(req, res){
         const data = await USERS.GET();
-        // data.forEach(data => {
-        //     //format CREATED_AT
-        //     let date = data.CREATED_AT.toString();
-        //     data.CREATED_AT = helper.formatDate(date);
-        //     //format UPDATED_AT
-        //     date = data.UPDATED_AT.toString();
-        //     data.UPDATED_AT = helper.formatDate(date);
-        // })
         res.json(data);
     }
 
@@ -20,20 +12,9 @@ class UsersController{
     async id(req, res){
         const id = req.body.ID;
         const data = await USERS.GET_ID(id);
-        // //format CREATED_AT
-        // let date = data.CREATED_AT.toString();
-        // data.CREATED_AT = helper.formatDate(date);
-        // //format UPDATED_AT
-        // date = data.UPDATED_AT.toString();
-        // data.UPDATED_AT = helper.formatDate(date);
         res.json(data);
     }
 
-    //[POST] /users/create
-    create(req, res){
-        const body = req.body;
-        res.json(body);
-    }
 
 }
 

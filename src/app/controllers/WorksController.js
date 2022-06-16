@@ -1,6 +1,6 @@
 const WORKS = require('../../config/db/works');
 const helper = require('../lib/helper');
-let Model = require('../../config/model/works');
+let Model = require('../../config/model/model');
 
 class WorksController{
     //[GET] /works
@@ -12,17 +12,17 @@ class WorksController{
             let str = '';
             let time = 0;
             work_receives.forEach(elm => {
-                str = str + elm.TEN_NGUOI_NHAN + ', ';
+                str = str + elm.NAME_RECEIVERS + ', ';
                 time = time + elm.TOTAL_TIME;
             });
-            works.TEN_NGUOI_NHAN = str.slice(0,str.length - 2);
+            works.NAME_RECEIVERS = str.slice(0,str.length - 2);
             works.TOTAL_TIME = time;
             //format TG_TAO
-            let date = works.TG_TAO.toString();
-            works.TG_TAO = helper.formatDate(date);
+            let date = works.BEGIN_DATE_AT.toString();
+            works.BEGIN_DATE_AT = helper.formatDate(date);
             //format TG_HET_HAN
-            date = works.TG_HET_HAN.toString();
-            works.TG_HET_HAN = helper.formatDate(date);
+            date = works.END_DATE_AT.toString();
+            works.END_DATE_AT = helper.formatDate(date);
         }
         res.json(objWorks);
     }
@@ -71,10 +71,10 @@ class WorksController{
             let str = '';
             let time = 0;
             work_receives.forEach(elm => {
-                str = str + elm.TEN_NGUOI_NHAN + ', ';
+                str = str + elm.NAME_RECEIVERS + ', ';
                 time = time + elm.TOTAL_TIME;
             });
-            works.TEN_NGUOI_NHAN = str.slice(0,str.length - 2);
+            works.NAME_RECEIVERS = str.slice(0,str.length - 2);
             works.TOTAL_TIME = time;
             //format TG_TAO
             let date = works.TG_TAO.toString();

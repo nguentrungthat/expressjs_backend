@@ -6,13 +6,13 @@ function get_workModel(obj){
         obj.forEach(element => {
             let work = {
                 ID: element.ID,
-                TEN_CV: element.TEN_CV,
-                TEN_NGUOI_TAO: element.TEN_NGUOI_TAO,
-                LOAI_CV: element.LOAI_CV,
-                TG_TAO: element.TG_TAO,
-                TG_HET_HAN: element.TG_HET_HAN,
+                NAME_WORKS: element.NAME_WORKS,
+                NAME_USERS: element.NAME_USERS,
+                NAME_WORK_LEVELS: element.NAME_WORK_LEVELS,
+                BEGIN_DATE_AT: element.BEGIN_DATE_AT,
+                END_DATE_AT: element.END_DATE_AT,
                 IS_SEEN: element.IS_SEEN,
-                TEN_NGUOI_NHAN: ' ',
+                NAME_RECEIVERS: ' ',
                 TOTAL_TIME: 0
             }
             works.push(work);
@@ -23,6 +23,7 @@ function get_workModel(obj){
 
 function receivesModel(obj){
     let now = new Date();
+    let work_receives = [];
     let work_receive = {
         ID: null,
         WORK_ID: null, 
@@ -32,8 +33,8 @@ function receivesModel(obj){
         COMMENT_WORK_RECEIVE: ' ', 
         TOTAL_TIME: 0, 
         TOTAL_TIME_CHECK: 0, 
-        BEGIN_DATE_AT: null, 
-        END_DATE_AT: null, 
+        BEGIN_DATE_AT: now.toLocaleDateString('en-GB'), 
+        END_DATE_AT: now.toLocaleDateString('en-GB'), 
         CREATED_AT: now.toLocaleDateString('en-GB'), 
         UPDATE_AT: now.toLocaleDateString('en-GB')
     };
@@ -47,13 +48,14 @@ function receivesModel(obj){
             COMMENT_WORK_RECEIVE: helper.check(obj.COMMENT_WORK_RECEIVE, ' '), 
             TOTAL_TIME: helper.check(obj.TOTAL_TIME, 0), 
             TOTAL_TIME_CHECK: helper.check(obj.TOTAL_TIME_CHECK, 0), 
-            BEGIN_DATE_AT: helper.check(obj.BEGIN_DATE_AT, null), 
-            END_DATE_AT: helper.check(obj.END_DATE_AT, null), 
+            BEGIN_DATE_AT: helper.check(obj.BEGIN_DATE_AT, now.toLocaleDateString('en-GB')), 
+            END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
             CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
             UPDATE_AT: helper.check(obj.UPDATE_AT, now.toLocaleDateString('en-GB'))
         }
+        work_receives.push(work_receive);
     }
-    return work_receive;
+    return work_receives;
 }
 
 function workModel(obj){
@@ -68,7 +70,8 @@ function workModel(obj){
         EVALUTE_COMMENT: ' ',
         NAME_WORKS: ' ', 
         NOTE: ' ', 
-        END_DATE_AT: null, 
+        BEGIN_DATE_AT: now.toLocaleDateString('en-GB'),
+        END_DATE_AT: now.toLocaleDateString('en-GB'), 
         CREATED_AT: now.toLocaleDateString('en-GB'), 
         UPDATED_AT: now.toLocaleDateString('en-GB'), 
         IS_SEEN: 0
@@ -84,7 +87,8 @@ function workModel(obj){
             EVALUTE_COMMENT: helper.check(obj.EVALUTE_COMMENT, ' '),
             NAME_WORKS: helper.check(obj.NAME_WORKS, ' '), 
             NOTE: helper.check(obj.NOTE, ' '), 
-            END_DATE_AT: helper.check(obj.END_DATE_AT, null), 
+            BEGIN_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')),
+            END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
             CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
             UPDATED_AT: helper.check(obj.UPDATED_AT, now.toLocaleDateString('en-GB')), 
             IS_SEEN: helper.check(obj.IS_SEEN, 0)
@@ -93,4 +97,39 @@ function workModel(obj){
     return work;
 }
 
-module.exports =  {get_workModel, workModel, receivesModel };
+function logModel(obj){
+    let now = new Date();
+    let logs = [];
+    let log = {
+        ID: null,
+        WORK_RECEIVE_ID: null,
+        BEGIN_DATE_AT: now.toLocaleDateString('en-GB'),
+        END_DATE_AT: now.toLocaleDateString('en-GB'),
+        TIME_WORK_LOGS: 0,
+        TIME_CHECK: 0,
+        CONTENT: ' ',
+        TITLE: ' ',
+        CREATED_AT: now.toLocaleDateString('en-GB'),
+        UPDATED_AT: now.toLocaleDateString('en-GB')
+    };
+    if(obj){
+        obj.forEach(element => {
+            log = {
+                ID: helper.check(element.ID, null),
+                WORK_RECEIVE_ID: element.WORK_RECEIVE_ID,
+                BEGIN_DATE_AT: helper.check(element.BEGIN_DATE_AT, now.toLocaleDateString('en-GB')),
+                END_DATE_AT: helper.check(element.END_DATE_AT, now.toLocaleDateString('en-GB')),
+                TIME_WORK_LOGS: helper.check(element.TIME_WORK_LOGS, 0),
+                TIME_CHECK: helper.check(element.TIME_CHECK, 0),
+                CONTENT: helper.check(element.CONTENT, ' '),
+                TITLE: helper.check(element.TITLE, ' '),
+                CREATED_AT: helper.check(element.CREATED_AT, now.toLocaleDateString('en-GB')),
+                UPDATED_AT: helper.check(element.UPDATED_AT, now.toLocaleDateString('en-GB'))
+            }
+            logs.push(log);
+        });
+    };
+    return logs;
+}
+
+module.exports =  {get_workModel, workModel, receivesModel, logModel };
