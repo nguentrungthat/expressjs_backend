@@ -49,4 +49,16 @@ function delete_work_receive(id){
     return `DELETE FROM gv_work_receives WHERE ID = ${id}`
 }
 
+function filter_creater(id){
+    return `select a.ID, a.NAME_WORKS, b.NAME_USERS, d.NAME_WORK_LEVELS, a.BEGIN_DATE_AT, a.END_DATE_AT, IS_SEEN 
+        from gv_works a join gv_users b on a.user_id = b.id join gv_work_levels d on a.work_level_id = d.id
+        where b.id = ${id}`;
+}
+
+function filter_receiver(id){
+    return `select a.ID, a.NAME_WORKS, b.NAME_USERS, d.NAME_WORK_LEVELS, a.BEGIN_DATE_AT, a.END_DATE_AT, IS_SEEN 
+        from gv_works a join gv_users b on a.user_id = b.id join gv_work_levels d on a.work_level_id = d.id
+        where b.id = ${id}`;
+}
+
 module.exports = {works, work_id, work_receive, add_work, add_work_receive, last_work, update_work_receive, delete_work_receive, work_receive_id };

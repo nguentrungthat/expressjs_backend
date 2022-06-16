@@ -23,7 +23,6 @@ function get_workModel(obj){
 
 function receivesModel(obj){
     let now = new Date();
-    let work_receives = [];
     let work_receive = {
         ID: null,
         WORK_ID: null, 
@@ -52,10 +51,9 @@ function receivesModel(obj){
             END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
             CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
             UPDATE_AT: helper.check(obj.UPDATE_AT, now.toLocaleDateString('en-GB'))
-        }
-        work_receives.push(work_receive);
+        }     
     }
-    return work_receives;
+    return work_receive;
 }
 
 function workModel(obj){
@@ -87,7 +85,7 @@ function workModel(obj){
             EVALUTE_COMMENT: helper.check(obj.EVALUTE_COMMENT, ' '),
             NAME_WORKS: helper.check(obj.NAME_WORKS, ' '), 
             NOTE: helper.check(obj.NOTE, ' '), 
-            BEGIN_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')),
+            BEGIN_DATE_AT: helper.check(obj.BEGIN_DATE_AT, now.toLocaleDateString('en-GB')),
             END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
             CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
             UPDATED_AT: helper.check(obj.UPDATED_AT, now.toLocaleDateString('en-GB')), 
@@ -113,7 +111,7 @@ function logModel(obj){
         UPDATED_AT: now.toLocaleDateString('en-GB')
     };
     if(obj){
-        obj.forEach(element => {
+        for(let element of obj){
             log = {
                 ID: helper.check(element.ID, null),
                 WORK_RECEIVE_ID: element.WORK_RECEIVE_ID,
@@ -127,7 +125,7 @@ function logModel(obj){
                 UPDATED_AT: helper.check(element.UPDATED_AT, now.toLocaleDateString('en-GB'))
             }
             logs.push(log);
-        });
+        };
     };
     return logs;
 }

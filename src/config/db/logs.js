@@ -26,7 +26,9 @@ async function CREATE_LOG(body)  {
   try {
       const connection = await db.connect();
       const str = query.create_log(body);
-      const result = await connection.execute(str);
+      const result = await connection.execute(str,{},{   
+        autoCommit: true
+      });
       const data = result.rows;
       return data;
   } catch (err) {
@@ -39,7 +41,9 @@ async function UPDATE_LOG(body)  {
   try {
       const connection = await db.connect();
       const str = query.update_log(body);
-      const result = await connection.execute(str);
+      const result = await connection.execute(str,{},{   
+        autoCommit: true
+      });
       const data = result.rows;
       return data;
   } catch (err) {
@@ -55,7 +59,7 @@ async function GET_TIME(id){
     const data = result.rows[0];
     return data;
   } catch (err) {
-    console.log('Error update log: ', err)
+    console.log('Error get time: ', err)
   }
 }
 
@@ -63,11 +67,13 @@ async function UPDATE_TIME(body){
   try {
     const connection = await db.connect();
     const str = query.update_time(body);
-    const result = await connection.execute(str);
+    const result = await connection.execute(str,{},{   
+      autoCommit: true
+    });
     const data = result.rows;
     return data;
   } catch (err) {
-    console.log('Error update log: ', err)
+    console.log('Error update time: ', err)
   }
 }
 

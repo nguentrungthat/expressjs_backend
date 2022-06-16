@@ -52,6 +52,7 @@ async function GET_WORK_RECEIVE_ID (id)  {
     try {
         const connection = await db.connect();
         const str = query.add_work(body);
+        
         const result = await connection.execute(str,{},{   
           autoCommit: true
         });
@@ -67,13 +68,14 @@ async function GET_WORK_RECEIVE_ID (id)  {
     try {
         const connection = await db.connect();
         const str = query.add_work_receive(body);
+        console.log(str);
         const result = await connection.execute(str,{},{   
           autoCommit: true
         });
         const data = result.rows;
         return data;
     } catch (err) {
-      console.log('Error create work: ', err)
+      console.log('Error create work receive: ', err)
     }
   }
 

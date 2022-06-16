@@ -45,15 +45,16 @@ class WorksController{
     async create(req, res){
         const body = req.body;
         const works = Model.workModel(req.body);
-        console.log(works);
         await WORKS.CREATE_WORK(works);
         if(body.WORK_RECEIVES){
             const work_receives = body.WORK_RECEIVES;
             const work_id = await WORKS.LAST_WORK();
             for (const receives of work_receives){
+                receives.COMMENT_WORK_RECEIVE = helper.check(receives.COMMENT_WORK_RECEIVE, works.NOTE);
+                receives.BEGIN_DATE_AT = helper.check(receives.BEGIN_DATE_AT, works.BEGIN_DATE_AT);
+                receives.END_DATE_AT = helper.check(receives.END_DATE_AT, works.END_DATE_AT);
                 const receive = Model.receivesModel(receives);
                 receive.WORK_ID = work_id.ID;
-                console.log(receive);
                 await WORKS.CREATE_WORK_RECEIVE(receive);
             }
         }
@@ -77,11 +78,11 @@ class WorksController{
             works.NAME_RECEIVERS = str.slice(0,str.length - 2);
             works.TOTAL_TIME = time;
             //format TG_TAO
-            let date = works.TG_TAO.toString();
-            works.TG_TAO = helper.formatDate(date);
+            let date = works.BEGIN_DATE_AT.toString();
+            works.TGBEGIN_DATE_AT_TAO = helper.formatDate(date);
             //format TG_HET_HAN
-            date = works.TG_HET_HAN.toString();
-            works.TG_HET_HAN = helper.formatDate(date);
+            date = works.END_DATE_AT.toString();
+            works.END_DATE_AT = helper.formatDate(date);
             }
             res.json(objWorks);
         }
