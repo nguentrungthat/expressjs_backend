@@ -46,16 +46,16 @@ class WorksController{
     async create(req, res){
         const body = req.body;
         const works = Model.workModel(req.body);
+        //console.log(works);
         await WORKS.CREATE_WORK(works);
         if(body.WORK_RECEIVES){
             const work_receives = body.WORK_RECEIVES;
             const work_id = await WORKS.LAST_WORK();
             for (const receives of work_receives){
-                receives.COMMENT_WORK_RECEIVE = helper.check(receives.COMMENT_WORK_RECEIVE, works.NOTE);
-                receives.BEGIN_DATE_AT = helper.check(receives.BEGIN_DATE_AT, works.BEGIN_DATE_AT);
-                receives.END_DATE_AT = helper.check(receives.END_DATE_AT, works.END_DATE_AT);
                 const receive = Model.receivesModel(receives);
                 receive.WORK_ID = work_id.ID;
+                receive.USER_ID = receives.ID;
+                console.log(receive);
                 await WORKS.CREATE_WORK_RECEIVE(receive);
             }
         }
@@ -148,7 +148,17 @@ class WorksController{
         res.json(objWorks);
     }
 
-    
+    //[POST] /works/update_work_status
+    async update_work_status(req, res){
+        await WORKS.UPDATE_WORK_STATUS(req.body);
+        res.json(body);
+    }
+
+    //[POST] /works/update_receive_status
+    async update_receive_status(req, res){
+        await WORKS.UPDATE_WORK_RECEIVE_STATUS(req.body);
+        res.json(body);
+    }
 }
 
 module.exports = new WorksController;

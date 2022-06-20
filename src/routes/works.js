@@ -15,9 +15,9 @@ router.post('/work_receive_id', helper.authenticateToken, WorksController.work_r
 
 router.post('/update_work_receive', helper.authenticateToken, WorksController.update_work_receive);
 
-router.post('/filter_creater', helper.authenticateToken, WorksController.filter_creater);
+router.post('/update_work_status', helper.authenticateToken, WorksController.update_work_status);
 
-router.post('/filter_receiver', helper.authenticateToken, WorksController.filter_receiver);
+router.post('/update_receive_status', helper.authenticateToken, WorksController.update_receive_status);
 
 router.get('/', helper.authenticateToken, WorksController.index);
 

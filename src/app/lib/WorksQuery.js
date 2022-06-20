@@ -3,9 +3,10 @@ function works(field, work_id){
     if(field && work_id)
         return `select a.ID, a.NAME_WORKS, b.NAME_USERS, c.NAME_WORK_LEVELS, a.BEGIN_DATE_AT, a.END_DATE_AT, IS_SEEN, STATUS 
         from gv_works a join gv_users b on a.user_id = b.id join gv_work_levels c on a.work_level_id = c.id join gv_work_status d on a.work_status_id = d.id
-        where a.${field} = ${work_id}`;
+        where a.${field} = ${work_id}
+        order by a.BEGIN_DATE_AT desc`;
     else
-        return 'select a.ID, a.NAME_WORKS, b.NAME_USERS, c.NAME_WORK_LEVELS, a.BEGIN_DATE_AT, a.END_DATE_AT, IS_SEEN, STATUS from gv_works a join gv_users b on a.user_id = b.id join gv_work_levels c on a.work_level_id = c.id join gv_work_status d on a.work_status_id = d.id';      
+        return 'select a.ID, a.NAME_WORKS, b.NAME_USERS, c.NAME_WORK_LEVELS, a.BEGIN_DATE_AT, a.END_DATE_AT, IS_SEEN, STATUS from gv_works a join gv_users b on a.user_id = b.id join gv_work_levels c on a.work_level_id = c.id join gv_work_status d on a.work_status_id = d.id order by a.BEGIN_DATE_AT desc';      
 }
 
 function work_receive(id){
@@ -59,12 +60,12 @@ function filter_work_receiver(id){
     return `select work_id from gv_work_receives where user_id = ${id}`;
 }
 
-function work_status(status, id){
-    return `update gv_works set work_status_id = ${status} where id = ${id}`;
+function work_status(body){
+    return `update gv_works set work_status_id = ${body.STATUS} where id = ${body.ID}`;
 }
 
-function work_receive_status(status, id){
-    return `update gv_work_receives set work_status_id = ${status} where id = ${id}`;
+function work_receive_status(body){
+    return `update gv_work_receives set work_status_id = ${body.STATUS} where id = ${body.ID}`;
 }
 
-module.exports = {works, work_id, work_receive, add_work, add_work_receive, last_work, update_work_receive, delete_work_receive, work_receive_id, filter_work_creater, filter_work_receiver };
+module.exports = {works, work_id, work_receive, add_work, add_work_receive, last_work, update_work_receive, delete_work_receive, work_receive_id, filter_work_creater, filter_work_receiver, work_status, work_receive_status };

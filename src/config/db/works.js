@@ -134,4 +134,34 @@ async function FILTER_WORK_RECEIVER (body)  {
   }
 }
 
-module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, FILTER_WORK_CREATER, FILTER_WORK_RECEIVER };
+//POST UPDATE WORK_STATUS()
+async function UPDATE_WORK_STATUS (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.work_status(body);
+      const result = await connection.execute(str,{},{   
+        autoCommit: true
+      });
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error update work status: ', err)
+  }
+}
+
+//POST UPDATE WORK_RECEIVE_STATUS()
+async function UPDATE_WORK_RECEIVE_STATUS (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.work_receive_status(body);
+      const result = await connection.execute(str,{},{   
+        autoCommit: true
+      });
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error update work receive status: ', err)
+  }
+}
+
+module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, FILTER_WORK_CREATER, FILTER_WORK_RECEIVER, UPDATE_WORK_STATUS, UPDATE_WORK_RECEIVE_STATUS };

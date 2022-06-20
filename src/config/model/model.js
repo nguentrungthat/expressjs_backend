@@ -49,8 +49,8 @@ function receivesModel(obj){
             COMMENT_WORK_RECEIVE: helper.check(obj.COMMENT_WORK_RECEIVE, ' '), 
             TOTAL_TIME: helper.check(obj.TOTAL_TIME, 0), 
             TOTAL_TIME_CHECK: helper.check(obj.TOTAL_TIME_CHECK, 0), 
-            BEGIN_DATE_AT: helper.check(obj.BEGIN_DATE_AT, now.toLocaleDateString('en-GB')), 
-            END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
+            BEGIN_DATE_AT: helper.check(new Date(obj.BEGIN_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
+            END_DATE_AT: helper.check(new Date(obj.END_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
             CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
             UPDATE_AT: helper.check(obj.UPDATE_AT, now.toLocaleDateString('en-GB')),
             STATUS: 1
@@ -89,10 +89,10 @@ function workModel(obj){
             EVALUTE_COMMENT: helper.check(obj.EVALUTE_COMMENT, ' '),
             NAME_WORKS: helper.check(obj.NAME_WORKS, ' '), 
             NOTE: helper.check(obj.NOTE, ' '), 
-            BEGIN_DATE_AT: helper.check(obj.BEGIN_DATE_AT, now.toLocaleDateString('en-GB')),
-            END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
-            CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
-            UPDATED_AT: helper.check(obj.UPDATED_AT, now.toLocaleDateString('en-GB')), 
+            BEGIN_DATE_AT: helper.check(new Date(obj.BEGIN_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')),
+            END_DATE_AT: helper.check(new Date(obj.END_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
+            CREATED_AT: helper.check(new Date(obj.CREATED_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
+            UPDATED_AT: helper.check(new Date(obj.UPDATED_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
             IS_SEEN: helper.check(obj.IS_SEEN, 0),
             STATUS: 1
         };
