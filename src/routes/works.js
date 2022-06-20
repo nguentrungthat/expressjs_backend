@@ -1,19 +1,25 @@
 const express = require('express');
 const router = express.Router();
+const helper = require('../app/lib/helper');
+
 
 const WorksController = require('../app/controllers/WorksController');
 
-router.post('/create', WorksController.create);
+router.post('/create', helper.authenticateToken, WorksController.create);
 
-router.post('/id', WorksController.id);
+router.post('/id', helper.authenticateToken, WorksController.id);
 
-router.post('/work_id', WorksController.work_id);
+router.post('/work_id', helper.authenticateToken, WorksController.work_id);
 
-router.post('/work_receive_id', WorksController.work_receive_id);
+router.post('/work_receive_id', helper.authenticateToken, WorksController.work_receive_id);
 
-router.post('/update_work_receive', WorksController.update_work_receive);
+router.post('/update_work_receive', helper.authenticateToken, WorksController.update_work_receive);
 
-router.get('/', WorksController.index);
+router.post('/filter_creater', helper.authenticateToken, WorksController.filter_creater);
+
+router.post('/filter_receiver', helper.authenticateToken, WorksController.filter_receiver);
+
+router.get('/', helper.authenticateToken, WorksController.index);
 
 
 

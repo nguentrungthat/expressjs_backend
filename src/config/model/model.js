@@ -13,7 +13,8 @@ function get_workModel(obj){
                 END_DATE_AT: element.END_DATE_AT,
                 IS_SEEN: element.IS_SEEN,
                 NAME_RECEIVERS: ' ',
-                TOTAL_TIME: 0
+                TOTAL_TIME: 0,
+                STATUS: element.STATUS
             }
             works.push(work);
         });
@@ -35,7 +36,8 @@ function receivesModel(obj){
         BEGIN_DATE_AT: now.toLocaleDateString('en-GB'), 
         END_DATE_AT: now.toLocaleDateString('en-GB'), 
         CREATED_AT: now.toLocaleDateString('en-GB'), 
-        UPDATE_AT: now.toLocaleDateString('en-GB')
+        UPDATE_AT: now.toLocaleDateString('en-GB'),
+        STATUS: 1
     };
     if(obj){
         work_receive = {
@@ -50,7 +52,8 @@ function receivesModel(obj){
             BEGIN_DATE_AT: helper.check(obj.BEGIN_DATE_AT, now.toLocaleDateString('en-GB')), 
             END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
             CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
-            UPDATE_AT: helper.check(obj.UPDATE_AT, now.toLocaleDateString('en-GB'))
+            UPDATE_AT: helper.check(obj.UPDATE_AT, now.toLocaleDateString('en-GB')),
+            STATUS: 1
         }     
     }
     return work_receive;
@@ -72,7 +75,8 @@ function workModel(obj){
         END_DATE_AT: now.toLocaleDateString('en-GB'), 
         CREATED_AT: now.toLocaleDateString('en-GB'), 
         UPDATED_AT: now.toLocaleDateString('en-GB'), 
-        IS_SEEN: 0
+        IS_SEEN: 0,
+        STATUS: 1
     };
     if(obj){
         work = { 
@@ -89,7 +93,8 @@ function workModel(obj){
             END_DATE_AT: helper.check(obj.END_DATE_AT, now.toLocaleDateString('en-GB')), 
             CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
             UPDATED_AT: helper.check(obj.UPDATED_AT, now.toLocaleDateString('en-GB')), 
-            IS_SEEN: helper.check(obj.IS_SEEN, 0)
+            IS_SEEN: helper.check(obj.IS_SEEN, 0),
+            STATUS: 1
         };
     }
     return work;

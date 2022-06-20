@@ -3,11 +3,12 @@ const query = require('../../app/lib/WorksQuery');
 
 
 //GET
-async function GET (id)  {
+async function GET (field, id)  {
     try {
       const connection = await db.connect();
       if(id){
-        const str = query.works(id);
+        const str = query.works(field, id);
+        //console.log(str);
         const result = await connection.execute(str);
         const data = result.rows;
         return data;
@@ -107,5 +108,30 @@ async function GET_WORK_RECEIVE_ID (id)  {
     }
   }
 
+//POST Filter WORK_CREATER()
+async function FILTER_WORK_CREATER (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.filter_work_creater(body);
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error filter creater: ', err)
+  }
+}
 
-module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE };
+//POST Filter WORK_RECEIVER()
+async function FILTER_WORK_RECEIVER (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.filter_work_receiver(body);
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error filter receiver: ', err)
+  }
+}
+
+module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, FILTER_WORK_CREATER, FILTER_WORK_RECEIVER };

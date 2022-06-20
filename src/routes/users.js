@@ -1,13 +1,14 @@
 const express = require('express');
+const helper = require('../app/lib/helper');
 const router = express.Router();
 
 const UsersController = require('../app/controllers/UsersController');
 
 //router.post('/create', UsersController.create);
 
-router.post('/id', UsersController.id);
+router.post('/id', helper.authenticateToken, UsersController.id);
 
-router.get('/', UsersController.index);
+router.get('/', helper.authenticateToken, UsersController.index);
 
 
 

@@ -1,13 +1,14 @@
 const express = require('express');
+const helper = require('../app/lib/helper');
 const router = express.Router();
 
 const GetsController = require('../app/controllers/GetsController');
 
-router.get('/levels', GetsController.levels);
+router.get('/levels', helper.authenticateToken, GetsController.levels);
 
-router.get('/evalutes', GetsController.evalutes);
+router.get('/evalutes', helper.authenticateToken, GetsController.evalutes);
 
-router.get('/types', GetsController.types);
+router.get('/types', helper.authenticateToken, GetsController.types);
 
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const WORKS = require('../../config/db/works');
 const helper = require('../lib/helper');
 let Model = require('../../config/model/model');
+const crypto = require('crypto');
 
 class WorksController{
     //[GET] /works
@@ -65,7 +66,7 @@ class WorksController{
     //[POST] /works/work_id
     async work_id(req, res){
         if(req.body.WORK_ID){
-            const data = await WORKS.GET(req.body.WORK_ID); 
+            const data = await WORKS.GET('work_id', req.body.WORK_ID); 
             let objWorks = Model.get_workModel(data);
             for (const works of objWorks){
             const work_receives = await WORKS.GET_ID(works.ID);
@@ -95,6 +96,59 @@ class WorksController{
         res.json(body);
     }
 
+    //[POST] /works/filter_creater
+    async filter_creater(req, res){
+        const data = await WORKS.FILTER_WORK_CREATER(req.body.ID); 
+        let objWorks = Model.get_workModel(data);
+        for (const works of objWorks){
+            const work_receives = await WORKS.GET_ID(works.ID);
+            let str = '';
+            let time = 0;
+            work_receives.forEach(elm => {
+                str = str + elm.NAME_RECEIVERS + ', ';
+                time = time + elm.TOTAL_TIME;
+            });
+            works.NAME_RECEIVERS = str.slice(0,str.length - 2);
+            works.TOTAL_TIME = time;
+            //format TG_TAO
+            let date = works.BEGIN_DATE_AT.toString();
+            works.BEGIN_DATE_AT = helper.formatDate(date);
+            //format TG_HET_HAN
+            date = works.END_DATE_AT.toString();
+            works.END_DATE_AT = helper.formatDate(date);
+        }
+        res.json(objWorks);
+    }
+
+    //[POST] /works/filter_receiver
+    async filter_receiver(req, res){
+        const receives = await WORKS.FILTER_WORK_RECEIVER(req.body.ID); 
+        let objWorks = [];
+        for (const receive of receives){
+            const work = await WORKS.GET('id' ,receive.WORK_ID);
+            const objWork = Model.get_workModel(work);
+            //console.log(objWork);
+            const work_receives = await WORKS.GET_ID(receive.WORK_ID);
+            let str = '';
+            let time = 0;
+            work_receives.forEach(elm => {
+                str = str + elm.NAME_RECEIVERS + ', ';
+                time = time + elm.TOTAL_TIME;
+            });
+            objWork[0].NAME_RECEIVERS = str.slice(0,str.length - 2);
+            objWork[0].TOTAL_TIME = time;
+            //format TG_TAO
+            let date = objWork[0].BEGIN_DATE_AT.toString();
+            objWork[0].BEGIN_DATE_AT = helper.formatDate(date);
+            //format TG_HET_HAN
+            date = objWork[0].END_DATE_AT.toString();
+            objWork[0].END_DATE_AT = helper.formatDate(date);
+            objWorks.push(objWork[0]);
+        }
+        res.json(objWorks);
+    }
+
+    
 }
 
 module.exports = new WorksController;
