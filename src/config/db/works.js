@@ -164,4 +164,17 @@ async function UPDATE_WORK_RECEIVE_STATUS (body)  {
   }
 }
 
-module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, FILTER_WORK_CREATER, FILTER_WORK_RECEIVER, UPDATE_WORK_STATUS, UPDATE_WORK_RECEIVE_STATUS };
+//POST UPDATE CHECK_STATUS()
+async function CHECK_STATUS (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.check_status(body);
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error check status: ', err)
+  }
+}
+
+module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, FILTER_WORK_CREATER, FILTER_WORK_RECEIVER, UPDATE_WORK_STATUS, UPDATE_WORK_RECEIVE_STATUS, CHECK_STATUS };

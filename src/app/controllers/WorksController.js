@@ -60,7 +60,8 @@ class WorksController{
             }
         }
         //console.log(body);
-        res.json(body);
+        res.sendStatus(200);
+        return;
     }
 
     //[POST] /works/work_id
@@ -93,7 +94,8 @@ class WorksController{
     async update_work_receive(req, res){
         const body = Model.receivesModel(req.body);
         await WORKS.UPDATE_WORK_RECEIVE(body);
-        res.json(body);
+        res.sendStatus(200);
+        return;
     }
 
     //[POST] /works/filter_creater
@@ -150,14 +152,28 @@ class WorksController{
 
     //[POST] /works/update_work_status
     async update_work_status(req, res){
+        const ID = req.body.ID;
+        const status = await WORKS.CHECK_STATUS(ID);
+        if(status.length == 0){
+            res.sendStatus(404);
+            return;
+        }
+        for(const elm of status){
+            if(elm.STATUS == 1){
+                res.sendStatus(400);
+                return;
+            }
+        }
         await WORKS.UPDATE_WORK_STATUS(req.body);
-        res.json(body);
+        res.sendStatus(200);
+        return;
     }
 
     //[POST] /works/update_receive_status
     async update_receive_status(req, res){
         await WORKS.UPDATE_WORK_RECEIVE_STATUS(req.body);
-        res.json(body);
+        res.sendStatus(200);
+        return;
     }
 }
 

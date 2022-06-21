@@ -7,6 +7,7 @@ function get_workModel(obj){
             let work = {
                 ID: element.ID,
                 NAME_WORKS: element.NAME_WORKS,
+                USER_ID: element.USER_ID,
                 NAME_USERS: element.NAME_USERS,
                 NAME_WORK_LEVELS: element.NAME_WORK_LEVELS,
                 BEGIN_DATE_AT: element.BEGIN_DATE_AT,

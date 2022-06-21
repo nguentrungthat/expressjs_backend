@@ -19,6 +19,21 @@ class LogsController{
         res.json(logs);
     }
 
+    //[POST] /logs/receive_id
+    async receive_id(req, res){
+        const data = await LOGS.LOGS_BY_RECEIVEID(req.body.ID);
+        let logs = Model.logModel(data);
+        for (const log of logs){
+            //format BEGIN_DATE_AT
+            let date = log.BEGIN_DATE_AT.toString();
+            log.BEGIN_DATE_AT = helper.formatDate(date);
+            //format END_DATE_AT
+            date = log.END_DATE_AT.toString();
+            log.END_DATE_AT = helper.formatDate(date);
+        }
+        res.json(logs);
+    }
+
     //[POST] /logs/create
     async create(req, res){
         const logs = Model.logModel(req.body);
@@ -51,6 +66,12 @@ class LogsController{
         }
         await LOGS.UPDATE_TIME(body);
         res.json(log);
+    }
+
+    //[POST] /logs/receives_by_userID
+    async receives_by_userID(req, res){
+        const receivers = await LOGS.RECEIVERS_BY_USERID(req.body.ID);
+        res.json(receivers);
     }
 
 }

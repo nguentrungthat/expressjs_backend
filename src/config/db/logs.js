@@ -77,5 +77,29 @@ async function UPDATE_TIME(body){
   }
 }
 
+async function RECEIVERS_BY_USERID(body){
+  try {
+    const connection = await db.connect();
+    const str = query.receive_by_userID(body);
+    const result = await connection.execute(str);
+    const data = result.rows;
+    return data;
+  } catch (err) {
+    console.log('Error receivers by user_id: ', err)
+  }
+}
 
-module.exports = {GET, CREATE_LOG, UPDATE_LOG, GET_TIME, UPDATE_TIME }
+async function LOGS_BY_RECEIVEID(body){
+  try {
+    const connection = await db.connect();
+    const str = query.logs_by_receiveID(body);
+    const result = await connection.execute(str);
+    const data = result.rows;
+    return data;
+  } catch (err) {
+    console.log('Error receivers by user_id: ', err)
+  }
+}
+
+
+module.exports = {GET, CREATE_LOG, UPDATE_LOG, GET_TIME, UPDATE_TIME, RECEIVERS_BY_USERID, LOGS_BY_RECEIVEID }
