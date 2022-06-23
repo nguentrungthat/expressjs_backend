@@ -1,12 +1,9 @@
 
 function works(field, work_id){
     if(field && work_id)
-        return `select a.ID, a.NAME_WORKS, b.ID as USER_ID, b.NAME_USERS, c.NAME_WORK_LEVELS, a.BEGIN_DATE_AT, a.END_DATE_AT, IS_SEEN, STATUS 
-        from gv_works a join gv_users b on a.user_id = b.id join gv_work_levels c on a.work_level_id = c.id join gv_work_status d on a.work_status_id = d.id
-        where a.${field} = ${work_id}
-        order by a.BEGIN_DATE_AT desc`;
+        return `select * from vwGetWorks where ${field} = ${work_id}`;
     else
-        return 'select a.ID, a.NAME_WORKS, b.ID as USER_ID, b.NAME_USERS, c.NAME_WORK_LEVELS, a.BEGIN_DATE_AT, a.END_DATE_AT, IS_SEEN, STATUS from gv_works a join gv_users b on a.user_id = b.id join gv_work_levels c on a.work_level_id = c.id join gv_work_status d on a.work_status_id = d.id order by a.BEGIN_DATE_AT desc';      
+        return 'select * from vwGetWorks';      
 }
 
 function work_receive(id){
@@ -15,17 +12,12 @@ function work_receive(id){
     where a.work_id = ${id}`;
 }
 
-function work_receive_id(id){
+function work_receive_by_id(id){
     return `select a.ID, b.name_users as TEN_NGUOI_NHAN, c.name_work_types, a.COMMENT_WORK_RECEIVE, TOTAL_TIME, TOTAL_TIME_CHECK, BEGIN_DATE_AT, END_DATE_AT
     from gv_work_receives a join gv_users b on a.user_id = b.id join gv_work_types c on a.work_type_id = c.id
     where a.id = ${id}`;
 }
 
-function work_id(id){
-    return `select b.name_users as TEN_NGUOI_NHAN, TOTAL_TIME
-    from gv_work_receives a join gv_users b on a.user_id = b.id
-    where a.work_id = ${id}`;
-}
 
 //
 function add_work(body){
@@ -65,4 +57,4 @@ function check_status(id){
     where work_id = ${id}`
 }
 
-module.exports = {works, work_id, work_receive, add_work, add_work_receive, last_work, update_work_receive, delete_work_receive, work_receive_id, work_status, work_receive_status, check_status };
+module.exports = {works, work_receive, add_work, add_work_receive, last_work, update_work_receive, delete_work_receive, work_receive_by_id, work_status, work_receive_status, check_status };

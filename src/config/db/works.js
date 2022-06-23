@@ -31,7 +31,7 @@ async function GET_ID (id)  {
         const data = result.rows;
         return data;
     } catch (err) {
-      console.log('Error work_id: ', err)
+      console.log('Error works GET_ID: ', err)
     }
   }
 
@@ -39,12 +39,12 @@ async function GET_ID (id)  {
 async function GET_WORK_RECEIVE_ID (id)  {
   try {
       const connection = await db.connect();
-      const str = query.work_receive_id(id);
+      const str = query.work_receive_by_id(id);
       const result = await connection.execute(str);
       const data = result.rows;
       return data;
   } catch (err) {
-    console.log('Error work_receive_id: ', err)
+    console.log('Error work_receive_by_id: ', err)
   }
 }
 

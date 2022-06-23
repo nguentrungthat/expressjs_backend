@@ -1,9 +1,9 @@
 function users(){
-    return 'SELECT ID, NAME_USERS FROM GV_USERS';      
+    return 'select * from vwGetUsers';      
 }
 
 function user_id(id){
-    return `SELECT * FROM GV_USERS WHERE ID = ${id}`
+    return `select * from vwGetUsers where ID = ${id}`
 }
 
 module.exports = {users, user_id };

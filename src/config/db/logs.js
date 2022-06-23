@@ -26,6 +26,8 @@ async function CREATE_LOG(body)  {
   try {
       const connection = await db.connect();
       const str = query.create_log(body);
+      console.log(' ');
+      console.log(str);
       const result = await connection.execute(str,{},{   
         autoCommit: true
       });
@@ -41,6 +43,8 @@ async function UPDATE_LOG(body)  {
   try {
       const connection = await db.connect();
       const str = query.update_log(body);
+      console.log(' ');
+      console.log(str);
       const result = await connection.execute(str,{},{   
         autoCommit: true
       });
@@ -67,6 +71,8 @@ async function UPDATE_TIME(body){
   try {
     const connection = await db.connect();
     const str = query.update_time(body);
+    console.log(' ');
+    console.log(str);
     const result = await connection.execute(str,{},{   
       autoCommit: true
     });
@@ -97,7 +103,7 @@ async function LOGS_BY_RECEIVEID(body){
     const data = result.rows;
     return data;
   } catch (err) {
-    console.log('Error receivers by user_id: ', err)
+    console.log('Error receivers by receive_id: ', err)
   }
 }
 

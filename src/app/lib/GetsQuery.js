@@ -1,13 +1,13 @@
 function GetLevels(){
-    return 'select ID, NAME_WORK_LEVELS from gv_work_levels';
+    return 'select * from vwGetLevels';
 }
 
 function GetEvalutes(){
-    return 'select ID, NAME_WORK_EVALUTES from gv_work_evalutes';
+    return 'select * from vwGetEvalutes';
 }
 
 function GetTypes(){
-    return 'select ID, NAME_WORK_TYPES from gv_work_types';
+    return 'select * from vwGetTypes';
 }
 
 module.exports = {GetLevels, GetEvalutes, GetTypes }
