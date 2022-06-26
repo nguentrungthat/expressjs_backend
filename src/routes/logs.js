@@ -9,7 +9,7 @@ router.post('/receive_id', helper.authenticateToken, LogsController.receive_id);
 
 router.post('/create', helper.authenticateToken, LogsController.create);
 
-//router.post('/update', helper.authenticateToken, LogsController.update);
+router.post('/user_id', helper.authenticateToken, LogsController.user_id);
 
 router.post('/receives_by_userID', helper.authenticateToken, LogsController.receives_by_userID);
 

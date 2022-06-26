@@ -107,5 +107,17 @@ async function LOGS_BY_RECEIVEID(body){
   }
 }
 
+async function LOGS_BY_USERID(body){
+  try {
+    const connection = await db.connect();
+    const str = query.logs_by_userID(body);
+    const result = await connection.execute(str);
+    const data = result.rows;
+    return data;
+  } catch (err) {
+    console.log('Error receivers by user_id: ', err)
+  }
+}
 
-module.exports = {GET, CREATE_LOG, UPDATE_LOG, GET_TIME, UPDATE_TIME, RECEIVERS_BY_USERID, LOGS_BY_RECEIVEID }
+
+module.exports = {GET, CREATE_LOG, UPDATE_LOG, GET_TIME, UPDATE_TIME, RECEIVERS_BY_USERID, LOGS_BY_RECEIVEID, LOGS_BY_USERID }

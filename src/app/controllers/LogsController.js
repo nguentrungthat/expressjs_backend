@@ -116,6 +116,27 @@ class LogsController{
         res.json(receivers);
     }
 
+    //[POST] /logs/user_id
+    async user_id(req, res){
+        const data = await LOGS.RECEIVERS_BY_USERID(req.body.ID);
+        //let logs = Model.logModel(data);
+        for (const log of data){
+            //format BEGIN_DATE_AT
+            let date = log.BEGIN_DATE_AT.toString();
+            log.BEGIN_DATE_AT = helper.formatDate(date);
+            //format END_DATE_AT
+            date = log.END_DATE_AT.toString();
+            log.END_DATE_AT = helper.formatDate(date);
+            //format CREATED_AT
+            date = log.CREATED_AT.toString();
+            log.CREATED_AT = helper.formatDate(date);
+            //format UPDATED_AT
+            date = log.UPDATED_AT.toString();
+            log.UPDATED_AT = helper.formatDate(date);
+        }
+        res.json(data);
+    }
+
 }
 
 module.exports = new LogsController;
