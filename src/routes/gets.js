@@ -10,5 +10,8 @@ router.get('/evalutes', helper.authenticateToken, GetsController.evalutes);
 
 router.get('/types', helper.authenticateToken, GetsController.types);
 
+router.get('/projects', helper.authenticateToken, GetsController.projects);
+
+
 
 module.exports = router;

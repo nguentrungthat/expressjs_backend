@@ -50,7 +50,7 @@ class LogsController{
     //[POST] /logs/create
     async create(req, res){
         const logs = Model.logModel(req.body);
-        console.log(logs);
+        //console.log(logs);
         for(let log of logs){
             if(log.ID)
                {
@@ -90,7 +90,7 @@ class LogsController{
     //[POST] /logs/update
     async update(req, res){
         const log = Model.logModel(req.body);
-        //await LOGS.UPDATE_LOG(log);
+        await LOGS.UPDATE_LOG(log);
         const logs_by_receiveID = await LOGS.LOGS_BY_RECEIVEID(log.WORK_RECEIVE_ID);
         let body = {
             ID: log.WORK_RECEIVE_ID,
@@ -105,7 +105,7 @@ class LogsController{
         }        
         body.TOTAL_TIME = total_time;
         body.TOTAL_TIME_CHECK = total_time_check;
-        //await LOGS.UPDATE_TIME(body);
+        await LOGS.UPDATE_TIME(body);
         console.log(log)
         res.json(body);
     }
@@ -118,7 +118,8 @@ class LogsController{
 
     //[POST] /logs/user_id
     async user_id(req, res){
-        const data = await LOGS.RECEIVERS_BY_USERID(req.body.ID);
+        const data = await LOGS.LOGS_BY_USERID(req.body.ID);
+        //console.log(data);
         //let logs = Model.logModel(data);
         for (const log of data){
             //format BEGIN_DATE_AT

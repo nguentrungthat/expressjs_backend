@@ -1,13 +1,17 @@
 function GetLevels(){
-    return 'select * from vwGetLevels';
+    return 'select * from gv_vwGetLevels';
 }
 
 function GetEvalutes(){
-    return 'select * from vwGetEvalutes';
+    return 'select * from gv_vwGetEvalutes';
 }
 
 function GetTypes(){
-    return 'select * from vwGetTypes';
+    return 'select * from gv_vwGetTypes';
 }
 
-module.exports = {GetLevels, GetEvalutes, GetTypes }
+function GetProjects(){
+    return 'select * from gv_vwGetProject';
+}
+
+module.exports = {GetLevels, GetEvalutes, GetTypes, GetProjects }

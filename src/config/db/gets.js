@@ -40,4 +40,18 @@ async function GET_TYPES()  {
     }
 }
 
-module.exports = {GET_LEVELS, GET_EVALUTES, GET_TYPES }
+
+//GET projects
+async function GET_PROJECTS()  {
+  try {
+      const connection = await db.connect();
+      const str = query.GetProjects();
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error: ', err)
+  }
+}
+
+module.exports = {GET_LEVELS, GET_EVALUTES, GET_TYPES, GET_PROJECTS }

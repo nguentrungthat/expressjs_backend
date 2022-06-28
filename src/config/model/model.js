@@ -7,6 +7,7 @@ function get_workModel(obj){
             let work = {
                 ID: element.ID,
                 NAME_WORKS: element.NAME_WORKS,
+                NOTE: element.NOTE,
                 USER_ID: element.USER_ID,
                 NAME_USERS: element.NAME_USERS,
                 NAME_WORK_LEVELS: element.NAME_WORK_LEVELS,
@@ -15,7 +16,9 @@ function get_workModel(obj){
                 IS_SEEN: element.IS_SEEN,
                 NAME_RECEIVERS: ' ',
                 TOTAL_TIME: 0,
-                STATUS: element.STATUS
+                STATUS: element.STATUS,
+                NAME_PROJECT: element.NAME_PROJECT,
+                WORK_GOALS: element.WORK_GOALS,
             }
             works.push(work);
         });
@@ -24,7 +27,6 @@ function get_workModel(obj){
 }
 
 function receivesModel(obj){
-    let now = new Date();
     let work_receive = {
         ID: null,
         WORK_ID: null, 
@@ -34,11 +36,13 @@ function receivesModel(obj){
         COMMENT_WORK_RECEIVE: ' ', 
         TOTAL_TIME: 0, 
         TOTAL_TIME_CHECK: 0, 
-        BEGIN_DATE_AT: now.toLocaleDateString('en-GB'), 
-        END_DATE_AT: now.toLocaleDateString('en-GB'), 
-        CREATED_AT: now.toLocaleDateString('en-GB'), 
-        UPDATE_AT: now.toLocaleDateString('en-GB'),
-        STATUS: 1
+        BEGIN_DATE_AT: new Date().toLocaleString('en-GB'), 
+        END_DATE_AT: new Date().toLocaleString('en-GB'), 
+        CREATED_AT: new Date().toLocaleString('en-GB'), 
+        UPDATE_AT: new Date().toLocaleString('en-GB'),
+        STATUS: 1,
+        PROJECT_ID: null,
+        WORK_RECEIVE_GOALS: ' '
     };
     if(obj){
         work_receive = {
@@ -50,18 +54,19 @@ function receivesModel(obj){
             COMMENT_WORK_RECEIVE: helper.check(obj.COMMENT_WORK_RECEIVE, ' '), 
             TOTAL_TIME: helper.check(obj.TOTAL_TIME, 0), 
             TOTAL_TIME_CHECK: helper.check(obj.TOTAL_TIME_CHECK, 0), 
-            BEGIN_DATE_AT: helper.check(new Date(obj.BEGIN_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
-            END_DATE_AT: helper.check(new Date(obj.END_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
-            CREATED_AT: helper.check(obj.CREATED_AT, now.toLocaleDateString('en-GB')), 
-            UPDATE_AT: helper.check(obj.UPDATE_AT, now.toLocaleDateString('en-GB')),
-            STATUS: 1
+            BEGIN_DATE_AT: helper.check(new Date(obj.BEGIN_DATE_AT).toLocaleString('en-GB'), new Date().toLocaleString('en-GB')), 
+            END_DATE_AT: helper.check(new Date(obj.END_DATE_AT).toLocaleString('en-GB'), new Date().toLocaleString('en-GB')), 
+            CREATED_AT: new Date().toLocaleString('en-GB'), 
+            UPDATE_AT: new Date().toLocaleString('en-GB'),
+            STATUS: 1,
+            PROJECT_ID: helper.check(obj.PROJECT_ID, null),
+            WORK_RECEIVE_GOALS: helper.check(obj.WORK_RECEIVE_GOALS, ' ')
         }     
     }
     return work_receive;
 }
 
 function workModel(obj){
-    let now = new Date();
     let work = { 
         ID: null,
         USER_ID: null, 
@@ -72,12 +77,14 @@ function workModel(obj){
         EVALUTE_COMMENT: ' ',
         NAME_WORKS: ' ', 
         NOTE: ' ', 
-        BEGIN_DATE_AT: now.toLocaleDateString('en-GB'),
-        END_DATE_AT: now.toLocaleDateString('en-GB'), 
-        CREATED_AT: now.toLocaleDateString('en-GB'), 
-        UPDATED_AT: now.toLocaleDateString('en-GB'), 
+        BEGIN_DATE_AT: new Date().toLocaleString('en-GB'),
+        END_DATE_AT: new Date().toLocaleString('en-GB'), 
+        CREATED_AT: new Date().toLocaleString('en-GB'), 
+        UPDATED_AT: new Date().toLocaleString('en-GB'), 
         IS_SEEN: 0,
-        STATUS: 1
+        STATUS: 1,
+        PROJECT_ID: null,
+        WORK_GOALS: ' '
     };
     if(obj){
         work = { 
@@ -90,12 +97,14 @@ function workModel(obj){
             EVALUTE_COMMENT: helper.check(obj.EVALUTE_COMMENT, ' '),
             NAME_WORKS: helper.check(obj.NAME_WORKS, ' '), 
             NOTE: helper.check(obj.NOTE, ' '), 
-            BEGIN_DATE_AT: helper.check(new Date(obj.BEGIN_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')),
-            END_DATE_AT: helper.check(new Date(obj.END_DATE_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
-            CREATED_AT: helper.check(new Date(obj.CREATED_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
-            UPDATED_AT: helper.check(new Date(obj.UPDATED_AT).toLocaleDateString('en-GB'), now.toLocaleDateString('en-GB')), 
+            BEGIN_DATE_AT: helper.check(new Date(obj.BEGIN_DATE_AT).toLocaleString('en-GB'), new Date().toLocaleString('en-GB')),
+            END_DATE_AT: helper.check(new Date(obj.END_DATE_AT).toLocaleString('en-GB'), new Date().toLocaleString('en-GB')), 
+            CREATED_AT: helper.check(new Date(obj.CREATED_AT).toLocaleString('en-GB'), new Date().toLocaleString('en-GB')), 
+            UPDATED_AT: helper.check(new Date(obj.UPDATED_AT).toLocaleString('en-GB'), new Date().toLocaleString('en-GB')), 
             IS_SEEN: helper.check(obj.IS_SEEN, 0),
-            STATUS: 1
+            STATUS: 1,
+            PROJECT_ID: helper.check(obj.PROJECT_ID, null),
+            WORK_GOALS: helper.check(obj.WORK_GOALS, ' ')
         };
     }
     return work;

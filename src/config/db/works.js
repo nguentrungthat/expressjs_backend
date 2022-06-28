@@ -53,7 +53,7 @@ async function GET_WORK_RECEIVE_ID (id)  {
     try {
         const connection = await db.connect();
         const str = query.add_work(body);
-        
+        //console.log(str);
         const result = await connection.execute(str,{},{   
           autoCommit: true
         });
@@ -69,7 +69,7 @@ async function GET_WORK_RECEIVE_ID (id)  {
     try {
         const connection = await db.connect();
         const str = query.add_work_receive(body);
-        console.log(str);
+        //console.log(str);
         const result = await connection.execute(str,{},{   
           autoCommit: true
         });
@@ -108,31 +108,6 @@ async function GET_WORK_RECEIVE_ID (id)  {
     }
   }
 
-//POST Filter WORK_CREATER()
-async function FILTER_WORK_CREATER (body)  {
-  try {
-      const connection = await db.connect();
-      const str = query.filter_work_creater(body);
-      const result = await connection.execute(str);
-      const data = result.rows;
-      return data;
-  } catch (err) {
-    console.log('Error filter creater: ', err)
-  }
-}
-
-//POST Filter WORK_RECEIVER()
-async function FILTER_WORK_RECEIVER (body)  {
-  try {
-      const connection = await db.connect();
-      const str = query.filter_work_receiver(body);
-      const result = await connection.execute(str);
-      const data = result.rows;
-      return data;
-  } catch (err) {
-    console.log('Error filter receiver: ', err)
-  }
-}
 
 //POST UPDATE WORK_STATUS()
 async function UPDATE_WORK_STATUS (body)  {
@@ -177,4 +152,30 @@ async function CHECK_STATUS (body)  {
   }
 }
 
-module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, FILTER_WORK_CREATER, FILTER_WORK_RECEIVER, UPDATE_WORK_STATUS, UPDATE_WORK_RECEIVE_STATUS, CHECK_STATUS };
+//POST PROJECT_BY_USERID()
+async function PROJECT_BY_USERID (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.project_by_userID(body);
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error project by userID: ', err)
+  }
+}
+
+//POST WORK_BY_PROJECTID()
+async function WORK_BY_PROJECTID (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.work_by_projectID(body);
+      const result = await connection.execute(str);
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error work by projectID: ', err)
+  }
+}
+
+module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, PROJECT_BY_USERID, WORK_BY_PROJECTID, UPDATE_WORK_STATUS, UPDATE_WORK_RECEIVE_STATUS, CHECK_STATUS };

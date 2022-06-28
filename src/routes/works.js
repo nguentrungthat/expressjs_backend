@@ -13,6 +13,11 @@ router.post('/work_id', helper.authenticateToken, WorksController.work_id);
 
 router.post('/work_receive_id', helper.authenticateToken, WorksController.work_receive_id);
 
+router.post('/project_by_userid', helper.authenticateToken, WorksController.project_by_userid);
+
+router.post('/work_by_projectid', helper.authenticateToken, WorksController.work_by_projectid);
+
+
 router.post('/update_work_receive', helper.authenticateToken, WorksController.update_work_receive);
 
 router.post('/update_work_status', helper.authenticateToken, WorksController.update_work_status);

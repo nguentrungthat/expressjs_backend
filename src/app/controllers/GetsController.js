@@ -19,6 +19,12 @@ class GetsController{
         res.json(data);
     }
 
+    //[GET] /projects
+    async projects(req, res){
+        const data = await GET.GET_PROJECTS();
+        res.json(data);
+    }
+
 }
 
 module.exports = new GetsController
