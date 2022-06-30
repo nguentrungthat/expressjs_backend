@@ -141,6 +141,28 @@ class WorksController{
         const data = await WORKS.WORK_BY_PROJECTID(req.body);
         res.json(data);
     }
+
+    //[POST] /works/delete_work
+    async delete_work(req, res){
+        try{
+            await LOGS.DELETE_WORK(req.body.ID);
+            res.json(200);
+        }
+        catch{
+            res.sendStatus(400);
+        }
+    }
+
+    //[POST] /works/delete_work_receive
+    async delete_work_receive(req, res){
+        try{
+            await LOGS.DELETE_WORK_RECEIVE(req.body.ID);
+            res.json(200);
+        }
+        catch{
+            res.sendStatus(400);
+        }
+    }
 }
 
 module.exports = new WorksController;

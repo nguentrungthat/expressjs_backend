@@ -178,4 +178,36 @@ async function WORK_BY_PROJECTID (body)  {
   }
 }
 
-module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, PROJECT_BY_USERID, WORK_BY_PROJECTID, UPDATE_WORK_STATUS, UPDATE_WORK_RECEIVE_STATUS, CHECK_STATUS };
+
+//POST DELETE WORK
+async function DELETE_WORK (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.delete_work(body);
+      const result = await connection.execute(str,{},{   
+        autoCommit: true
+      });
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error delete work: ', err)
+  }
+}
+
+
+//POST DELETE WORK RECEIVE
+async function DELETE_WORK_RECEIVE (body)  {
+  try {
+      const connection = await db.connect();
+      const str = query.delete_work_receive(body);
+      const result = await connection.execute(str,{},{   
+        autoCommit: true
+      });
+      const data = result.rows;
+      return data;
+  } catch (err) {
+    console.log('Error delete work_receive: ', err)
+  }
+}
+
+module.exports = {GET, GET_ID, CREATE_WORK, CREATE_WORK_RECEIVE, LAST_WORK, GET_WORK_RECEIVE_ID, UPDATE_WORK_RECEIVE, PROJECT_BY_USERID, WORK_BY_PROJECTID, UPDATE_WORK_STATUS, UPDATE_WORK_RECEIVE_STATUS, CHECK_STATUS, DELETE_WORK, DELETE_WORK_RECEIVE };

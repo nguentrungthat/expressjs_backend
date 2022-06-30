@@ -17,6 +17,9 @@ router.post('/project_by_userid', helper.authenticateToken, WorksController.proj
 
 router.post('/work_by_projectid', helper.authenticateToken, WorksController.work_by_projectid);
 
+router.post('/delete_work', helper.authenticateToken, WorksController.delete_work);
+
+router.post('/delete_work_receive', helper.authenticateToken, WorksController.delete_work_receive);
 
 router.post('/update_work_receive', helper.authenticateToken, WorksController.update_work_receive);
 

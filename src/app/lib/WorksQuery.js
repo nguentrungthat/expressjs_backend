@@ -39,9 +39,13 @@ function update_work_receive(body){
     return `begin gv_P_Update_work_receive(${body.ID}, ${body.USER_ID}, ${body.COMMENT_WORK_RECEIVE}, ${body.BEGIN_DATE_AT}, ${body.END_DATE_AT}, ${body.UPDATE_AT}, ${body.PROJECT_ID}, '${body.WORK_RECEIVE_GOALS}'); end;`
 }
 
-// function delete_work_receive(id){
-//     return `DELETE FROM gv_work_receives WHERE ID = ${id}`
-// }
+function delete_work(id){
+    return `begin gv_P_Delete_work(${id}); end;`
+}
+
+function delete_work_receive(id){
+    return `begin gv_P_Delete_work_receive(${id}); end;`
+}
 
 
 function work_status(body){
@@ -56,4 +60,4 @@ function check_status(id){
     return `select * from gv_vwCheck_status where work_id = ${id}`
 }
 
-module.exports = {works, work_receive, add_work, add_work_receive, last_work, update_work_receive, work_receive_by_id, work_status, work_receive_status, check_status, project_by_userID, work_by_projectID };
+module.exports = {works, work_receive, add_work, add_work_receive, last_work, update_work_receive, work_receive_by_id, work_status, work_receive_status, check_status, project_by_userID, work_by_projectID, delete_work, delete_work_receive };

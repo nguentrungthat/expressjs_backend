@@ -138,6 +138,17 @@ class LogsController{
         res.json(data);
     }
 
+    //[POST] /logs/delete
+    async delete(req, res){
+        try{
+            await LOGS.DELETE_LOG(req.body.ID);
+            res.json(200);
+        }
+        catch{
+            res.sendStatus(400);
+        }
+    }
+
 }
 
 module.exports = new LogsController;

@@ -32,4 +32,8 @@ function receive_by_userID(id){
     return `select * from gv_vw_receive_by_userID where user_id = ${id}`;
 }
 
-module.exports = {logs, update_log, create_log, get_time, update_time, receive_by_userID, logs_by_receiveID, logs_by_userID }
+function delete_log(id){
+    return `begin gv_P_Delete_log(${id}); end;`
+}
+
+module.exports = {logs, update_log, create_log, get_time, update_time, receive_by_userID, logs_by_receiveID, logs_by_userID, delete_log }

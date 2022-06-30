@@ -26,8 +26,6 @@ async function CREATE_LOG(body)  {
   try {
       const connection = await db.connect();
       const str = query.create_log(body);
-      console.log(' ');
-      console.log(str);
       const result = await connection.execute(str,{},{   
         autoCommit: true
       });
@@ -115,5 +113,18 @@ async function LOGS_BY_USERID(body){
   }
 }
 
+async function DELETE_LOG(body){
+  try {
+    const connection = await db.connect();
+    const str = query.delete_log(body);
+    const result = await connection.execute(str,{},{   
+      autoCommit: true
+    });
+    const data = result.rows;
+    return data;
+  } catch (err) {
+    console.log('Error delete log: ', err)
+  }
+}
 
-module.exports = {GET, CREATE_LOG, UPDATE_LOG, GET_TIME, UPDATE_TIME, RECEIVERS_BY_USERID, LOGS_BY_RECEIVEID, LOGS_BY_USERID }
+module.exports = {GET, CREATE_LOG, UPDATE_LOG, GET_TIME, UPDATE_TIME, RECEIVERS_BY_USERID, LOGS_BY_RECEIVEID, LOGS_BY_USERID, DELETE_LOG }
