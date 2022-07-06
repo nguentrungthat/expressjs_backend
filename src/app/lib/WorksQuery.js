@@ -36,7 +36,7 @@ function last_work(){
 }
 
 function update_work_receive(body){
-    return `begin gv_P_Update_work_receive(${body.ID}, ${body.USER_ID}, ${body.COMMENT_WORK_RECEIVE}, ${body.BEGIN_DATE_AT}, ${body.END_DATE_AT}, ${body.UPDATE_AT}, ${body.PROJECT_ID}, '${body.WORK_RECEIVE_GOALS}'); end;`
+    return `begin gv_P_Update_work_receive(${body.ID}, ${body.USER_ID}, '${body.COMMENT_WORK_RECEIVE}', '${body.BEGIN_DATE_AT}', '${body.END_DATE_AT}', '${body.UPDATE_AT}', '${body.WORK_RECEIVE_GOALS}'); end;`
 }
 
 function delete_work(id){

@@ -53,7 +53,7 @@ async function GET_WORK_RECEIVE_ID (id)  {
     try {
         const connection = await db.connect();
         const str = query.add_work(body);
-        //console.log(str);
+        console.log(str);
         const result = await connection.execute(str,{},{   
           autoCommit: true
         });
@@ -98,13 +98,14 @@ async function GET_WORK_RECEIVE_ID (id)  {
     try {
         const connection = await db.connect();
         const str = query.update_work_receive(body);
+        //console.log(str);
         const result = await connection.execute(str,{},{   
           autoCommit: true
         });
         const data = result.rows;
         return data;
     } catch (err) {
-      console.log('Error update work: ', err)
+      console.log('Error update work receive: ', err)
     }
   }
 
