@@ -41,6 +41,7 @@ async function UPDATE_LOG(body)  {
   try {
       const connection = await db.connect();
       const str = query.update_log(body);
+      //console.log(str);
       const result = await connection.execute(str,{},{   
         autoCommit: true
       });

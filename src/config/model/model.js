@@ -116,14 +116,14 @@ function logModel(obj){
     let log = {
         ID: null,
         WORK_RECEIVE_ID: null,
-        BEGIN_DATE_AT: now.toLocaleDateString('en-GB').toLocaleString('en-GB'),
-        END_DATE_AT: now.toLocaleDateString('en-GB').toLocaleString('en-GB'),
+        BEGIN_DATE_AT: now.toLocaleString('en-GB'),
+        END_DATE_AT: now.toLocaleString('en-GB'),
         TIME_WORK_LOGS: 0,
         TIME_CHECK: 0,
         CONTENT: ' ',
         TITLE: ' ',
-        CREATED_AT: now.toLocaleDateString('en-GB').toLocaleString('en-GB'),
-        UPDATED_AT: now.toLocaleDateString('en-GB').toLocaleString('en-GB')
+        CREATED_AT: now.toLocaleString('en-GB'),
+        UPDATED_AT: now.toLocaleString('en-GB')
     };
     if(obj){
         for(let element of obj){
@@ -137,7 +137,7 @@ function logModel(obj){
                 CONTENT: helper.check(element.CONTENT, ' '),
                 TITLE: helper.check(element.TITLE, ' '),
                 CREATED_AT: helper.check(new Date(element.CREATED_AT).toLocaleString('en-GB'), now.toLocaleString('en-GB')),
-                UPDATED_AT: helper.check(new Date(element.UPDATED_AT).toLocaleString('en-GB'), now.toLocaleString('en-GB'))
+                UPDATED_AT: now.toLocaleString('en-GB')
             }
             logs.push(log);
         };

@@ -52,37 +52,30 @@ class LogsController{
         const logs = Model.logModel(req.body);
         //console.log(logs);
         for(let log of logs){
+            console.log(log);
+            let body = {
+                ID: log.WORK_RECEIVE_ID,
+                TOTAL_TIME: 0,
+                TOTAL_TIME_CHECK: 0
+            }
+            let total_time = 0;
+            let total_time_check = 0;
             if(log.ID)
-               {
-                   await LOGS.UPDATE_LOG(log);
-                    const logs_by_receiveID = await LOGS.LOGS_BY_RECEIVEID(log.WORK_RECEIVE_ID);
-                    let body = {
-                        ID: log.WORK_RECEIVE_ID,
-                        TOTAL_TIME: 0,
-                        TOTAL_TIME_CHECK: 0
-                    }
-                    let total_time = 0;
-                    let total_time_check = 0; 
-                    for(const elm of logs_by_receiveID){
-                        total_time += elm.TIME_WORK_LOGS;
-                        total_time_check += elm.TIME_CHECK;
-                    }        
-                    body.TOTAL_TIME = total_time;
-                    body.TOTAL_TIME_CHECK = total_time_check;
-                    await LOGS.UPDATE_TIME(body);
+               {  
+                await LOGS.UPDATE_LOG(log);  
                }
             else{
                 await LOGS.CREATE_LOG(log);
-                const work_receive = await LOGS.GET_TIME(log.WORK_RECEIVE_ID);
-                let total_time = work_receive.TOTAL_TIME + log.TIME_WORK_LOGS;
-                let total_time_check = work_receive.TOTAL_TIME_CHECK + log.TIME_CHECK;
-                let body = {
-                    ID: log.WORK_RECEIVE_ID,
-                    TOTAL_TIME: total_time,
-                    TOTAL_TIME_CHECK: total_time_check
-                }
-                await LOGS.UPDATE_TIME(body);
             }
+            const logs_by_receiveID = await LOGS.LOGS_BY_RECEIVEID(log.WORK_RECEIVE_ID);
+            for(const elm of logs_by_receiveID){
+                total_time += elm.TIME_WORK_LOGS;
+                total_time_check += elm.TIME_CHECK;
+            }        
+            body.TOTAL_TIME = total_time;
+            body.TOTAL_TIME_CHECK = total_time_check;
+            await LOGS.UPDATE_TIME(body);
+
         }
         res.sendStatus(200);
     }
@@ -141,7 +134,9 @@ class LogsController{
     //[POST] /logs/delete
     async delete(req, res){
         try{
-            await LOGS.DELETE_LOG(req.body.ID);
+            const logs = req.body;
+            for (var log of logs)
+            await LOGS.DELETE_LOG(log.ID);
             res.json(200);
         }
         catch{
